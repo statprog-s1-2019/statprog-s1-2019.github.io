@@ -1,0 +1,130 @@
+---
+title: "Data Structures, S3, and Subsetting"
+author: "Colin Rundel"
+date: "2019-01-17"
+output:
+  xaringan::moon_reader:
+  css: "slides.css"
+lib_dir: libs
+nature:
+  highlightStyle: github
+highlightLines: true
+countIncrementalSlides: false
+---
+exclude: true
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, # for blogdown
+  width=80
+)
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+
+fansi::set_knit_hooks(knitr::knit_hooks)
+```
+
+
+---
+class: middle
+count: false
+
+# Tibbles
+
+---
+
+## Modern data frames
+
+Hadley Wickham has a package that modifies data frames to be more modern, or as he calls them surly and lazy.
+
+```{r}
+library(tibble)
+class(iris)
+tbl_iris = as_tibble(iris)
+class(tbl_iris)
+```
+
+---
+
+## Fancy Printing
+
+```{r}
+tbl_iris
+```
+
+```{r}
+data_frame(x = rnorm(10,sd=5), y = rnorm(10))
+```
+
+---
+
+## Tibbles are lazy
+
+```{r}
+tbl_iris[1,]
+```
+
+.pull-left[
+```{r}
+tbl_iris[,"Species"]
+```
+]
+
+--
+
+.pull-right[
+```{r}
+data_frame(
+  x = 1:3, 
+  y = c("A","B","C")
+)
+```
+]
+
+---
+
+## Multiple classes
+
+```{r}
+d = data_frame(
+x = 1:3, 
+y = c("A","B","C")
+)
+
+class(d)
+```
+
+--
+
+<br/>
+
+```{r}
+class(d) = rev(class(d))
+class(d)
+d
+```
+
+---
+
+## Reverting a tbl
+
+```{r}
+d = data_frame(
+  x = 1:3, 
+  y = c("A","B","C")
+)
+
+d
+```
+
+.pull-left[
+```{r}
+data.frame(d)
+```
+]
+
+.pull-right[
+```{r}
+class(d) = "data.frame"
+d
+```
+]
